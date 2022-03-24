@@ -1,3 +1,6 @@
+"""
+Grayscale Image Dithering
+"""
 import skimage.io as io
 import numpy as np
 
@@ -13,10 +16,8 @@ I*=255
 height = I.shape[0]
 width = I.shape[1]
 
-"""
-part A
-"""   
-
+""" part A """
+  
 # dithering matrix d1
 d1 = [[0, 128, 32, 160],
       [192, 64, 224, 96],
@@ -38,10 +39,8 @@ for i in range(height):
         else:
             I1[i][j] = 0
 
+""" part B : Extend to n = 4 gray values """
 
-"""
-part B : Extend to n = 4 gray values
-"""
 # 255/3 = 85
 Q = I/85
 
@@ -49,7 +48,7 @@ Q = I/85
 d2 = [[0, 56],
       [84, 28]]
 
-# generate a matrix of image size by repeating D2
+# generate a matrix of image size by repeating d2
 D2 = np.zeros((height, width))
 for i in range(height):
     for j in range(width):
@@ -66,7 +65,7 @@ for i in range(height):
             I2[i][j] = Q[i][j]+0
             
 # scale image
-I2_scale = 255* ( (I2-I2.min()) / (I2.max() - I2.min()))
+I2_scale = 255* ( (I2-I2.min()) / (I2.max() - I2.min()) )
 
 # show images
 io.imshow(I, cmap='gray')
